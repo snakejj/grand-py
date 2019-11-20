@@ -1,0 +1,28 @@
+import unidecode
+
+
+class Parser:
+    def __init__(self, text):
+        self.text = text
+
+    def _text_to_lowercase(self):
+        self.text = self.text.lower()
+
+    def _remove_accents(self):
+        self.text = unidecode.unidecode(self.text)
+
+    def _remove_extra_spaces_between_words(self):
+        self.text = " ".join(self.text.split())
+
+    def _stripping_leading_and_trailing_spaces(self):
+        self.text.strip(' ')
+
+    def _extract_location(self):
+        pass
+
+    def clean(self):
+        self._text_to_lowercase()
+        self._remove_accents()
+        self._remove_extra_spaces_between_words()
+        self._stripping_leading_and_trailing_spaces()
+        self._extract_location()
