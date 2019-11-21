@@ -1,4 +1,5 @@
 import unidecode
+import re
 
 
 class Parser:
@@ -18,7 +19,12 @@ class Parser:
         self.text.strip(' ')
 
     def _extract_location(self):
-        pass
+        expression = r"(l'adresse.*du*e*s*|ou.*trouver*|ou est|ou se situe)"\
+            r"(?P<location>[^,;:?!.]*)"
+        result = re.search(expression, self.text)
+        if result:
+            self.text = result.group('location')
+            self.text = self.text.strip(" ")
 
     def clean(self):
         self._text_to_lowercase()
