@@ -1,3 +1,8 @@
+#! /usr/bin/env python3
+# coding: utf-8
+
+"""Module which defines all classes and functions related to the parser."""
+
 import unidecode
 import re
 
