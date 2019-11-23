@@ -8,8 +8,8 @@ import re
 
 
 class Parser:
-    def __init__(self, text):
-        self.text = text
+    def __init__(self, raw_data):
+        self.text = raw_data
 
     def _text_to_lowercase(self):
         self.text = self.text.lower()
@@ -31,7 +31,7 @@ class Parser:
             self.text = result.group('location')
             self.text = self.text.strip(" ")
 
-    def clean(self):
+    def clean_input(self):
         self._text_to_lowercase()
         self._remove_accents()
         self._remove_extra_spaces_between_words()
