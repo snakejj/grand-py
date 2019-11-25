@@ -56,12 +56,33 @@ class TestWiki:
 
     def test_wiki_getting_extract_from_closest_wiki_page(self, monkeypatch):
         class MockGet:
-
-            def __init__(self, url, params):
-                pass
-
-            def json(self):
-                return {
+            responses = iter([
+                {
+                    "batchcomplete": "",
+                    "query": {
+                        "geosearch": [
+                            {
+                                "pageid": 6422233,
+                                "ns": 0,
+                                "title": "Academy of Art University",
+                                "lat": 37.78785,
+                                "lon": -122.40065,
+                                "dist": 129.9,
+                                "primary": ""
+                            },
+                            {
+                                "pageid": 5105544,
+                                "ns": 0,
+                                "title": "101 Second Street",
+                                "lat": 37.788139,
+                                "lon": -122.399056,
+                                "dist": 140.9,
+                                "primary": ""
+                            },
+                        ]
+                    }
+                },
+                {
                     "batchcomplete": "",
                     "warnings": {
                         "extracts": {
@@ -94,6 +115,13 @@ class TestWiki:
                         }
                     }
                 }
+            ])
+
+            def __init__(self, url, params):
+                pass
+
+            def json(self):
+                    return next(self.responses)
 
         monkeypatch.setattr("requests.get", MockGet)
 
