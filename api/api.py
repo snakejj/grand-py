@@ -79,8 +79,62 @@ class Here:
         return sorted_info
 
 
-# ##########Test##############
-instance_here = Here('la tour eiffel')
+class Wiki:
 
-print(instance_here.getting_sorted_informations())
-# ############################
+    def __init__(self, latitude, longitude):
+        self.latitude = latitude
+        self.longitude = longitude
+
+    def _getting_raw_info_from_api_geosearch(self):
+        url = "https://fr.wikipedia.org/w/api.php"
+
+        data = {
+            "action": "query",
+            "list": "geosearch",
+            "format": "json",
+            "gsradius": 10000,
+            "gscoord": str(self.latitude) + "|" + str(self.longitude)
+        }
+
+        raw_result = requests.get(url, params=data)
+        return raw_result.json()
+
+    def _from_sorted_raw_info_to_article_id(self):
+        raw_result = self._getting_raw_info_from_api_geosearch()
+        pageid = raw_result["query"]["geosearch"][0]["pageid"]
+        return pageid
+
+    def _getting_raw_info_from_api_extract(self):
+        url = "https://fr.wikipedia.org/w/api.php"
+
+        data = {
+            "action": "query",
+            "prop": "extracts" + "|" + "info",
+            "inprop": "url",
+            "exchars": 300,
+            "pageids": self._from_sorted_raw_info_to_article_id(),
+            "format": "json",
+            "explaintext": ""
+        }
+
+        raw_result = requests.get(url, params=data)
+        return raw_result.json()
+
+    def getting_extract_from_closest_wiki_page(self):
+        raw_result = self._getting_raw_info_from_api_extract()
+        page_id = self._from_sorted_raw_info_to_article_id()
+        extract = raw_result["query"]["pages"][str(page_id)]["extract"]
+        return extract
+
+    def getting_url_from_closest_wiki_page(self):
+        raw_result = self._getting_raw_info_from_api_extract()
+        page_id = self._from_sorted_raw_info_to_article_id()
+        url = raw_result["query"]["pages"][str(page_id)]["fullurl"]
+        return url
+    
+
+# ##########Test##############
+instance_wiki = Wiki(37.786971, -122.399677)
+
+print(instance_wiki.getting_url_from_closest_wiki_page())
+# ############################.
