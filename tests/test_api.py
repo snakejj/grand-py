@@ -5,10 +5,8 @@ from api.api import Here, Wiki
 
 
 class TestHere:
-
     def test_here_getting_sorted_informations(self, monkeypatch):
         class MockGet:
-
             def __init__(self, url, params):
                 pass
 
@@ -26,108 +24,116 @@ class TestHere:
                                 "om/p/d/places2_stg/icons/categories/35.icon",
                                 "vicinity": "Hauts-de-Seine, Île-de-France",
                                 "having": [],
-                                "type":"urn:nlp-types:place",
+                                "type": "urn:nlp-types:place",
                                 "href": "https://places.cit.api.here.com/pes/",
-                                "id":"loc-dmVyc2lvbj0xO3RpdGxlPUxhK0QlQzMlQDS",
-                                "authoritative":"true",
+                                "id": "loc-dmVyc2lvbj0xO3RpdGxlPUxhK0QlQzMlQDS",
+                                "authoritative": "true",
                             }
                         ]
                     },
                     "search": {
                         "context": {"urn": "nlp-types:place"},
                         "ranking": "default",
-                        }
+                    },
                 }
 
         monkeypatch.setattr("requests.get", MockGet)
 
-        here_instance = Here('la defense')
+        here_instance = Here("la defense")
 
-        assert here_instance.getting_sorted_informations()[0] == 'La Défense'
+        assert here_instance.getting_sorted_informations()[0] == "La Défense"
         assert here_instance.getting_sorted_informations()[1] == [
             48.85824,
-            2.2945
-            ]
-        assert here_instance.getting_sorted_informations()[2] == "https://" \
+            2.2945,
+        ]
+        assert (
+            here_instance.getting_sorted_informations()[2] == "https://"
             "places.cit.api.here.com/pes/"
+        )
 
 
 class TestWiki:
-
     def test_wiki_getting_extract_from_closest_wiki_page(self, monkeypatch):
         class MockGet:
-            responses = iter([
-                {
-                    "batchcomplete": "",
-                    "query": {
-                        "geosearch": [
-                            {
-                                "pageid": 6422233,
-                                "ns": 0,
-                                "title": "Academy of Art University",
-                                "lat": 37.78785,
-                                "lon": -122.40065,
-                                "dist": 129.9,
-                                "primary": ""
-                            },
-                            {
-                                "pageid": 5105544,
-                                "ns": 0,
-                                "title": "101 Second Street",
-                                "lat": 37.788139,
-                                "lon": -122.399056,
-                                "dist": 140.9,
-                                "primary": ""
-                            },
-                        ]
-                    }
-                },
-                {
-                    "batchcomplete": "",
-                    "warnings": {
-                        "extracts": {
-                            "*": "\"exlimit\" was too large for a whole articl"
-                            "e extracts request, lowered to 1."
-                        }
+            responses = iter(
+                [
+                    {
+                        "batchcomplete": "",
+                        "query": {
+                            "geosearch": [
+                                {
+                                    "pageid": 6422233,
+                                    "ns": 0,
+                                    "title": "Academy of Art University",
+                                    "lat": 37.78785,
+                                    "lon": -122.40065,
+                                    "dist": 129.9,
+                                    "primary": "",
+                                },
+                                {
+                                    "pageid": 5105544,
+                                    "ns": 0,
+                                    "title": "101 Second Street",
+                                    "lat": 37.788139,
+                                    "lon": -122.399056,
+                                    "dist": 140.9,
+                                    "primary": "",
+                                },
+                            ]
+                        },
                     },
-                    "query": {
-                        "pages": {
-                            "6422233": {
-                                "pageid": 6422233,
-                                "ns": 0,
-                                "title": "Academy of Art University",
-                                "extract": "L\u2019Academy of Art University",
-                                "contentmodel": "wikitext",
-                                "pagelanguage": "fr",
-                                "pagelanguagehtmlcode": "fr",
-                                "pagelanguagedir": "ltr",
-                                "touched": "2019-11-23T20:08:34Z",
-                                "lastrevid": 144038875,
-                                "length": 2115,
-                                "fullurl": "https://fr.wikipedia.org/wiki/Acad"
-                                "emy_of_Art_University",
-                                "editurl": "https://fr.wikipedia.org/w/index.p"
-                                "hp?title=Academy_of_Art_University&action=edi"
-                                "t",
-                                "canonicalurl": "https://fr.wikipedia.org/wiki"
-                                "/Academy_of_Art_University"
+                    {
+                        "batchcomplete": "",
+                        "warnings": {
+                            "extracts": {
+                                "*": '"exlimit" was too large for a whole articl'
+                                "e extracts request, lowered to 1."
                             }
-                        }
-                    }
-                }
-            ])
+                        },
+                        "query": {
+                            "pages": {
+                                "6422233": {
+                                    "pageid": 6422233,
+                                    "ns": 0,
+                                    "title": "Academy of Art University",
+                                    "extract": "L\u2019Academy of Art University",
+                                    "contentmodel": "wikitext",
+                                    "pagelanguage": "fr",
+                                    "pagelanguagehtmlcode": "fr",
+                                    "pagelanguagedir": "ltr",
+                                    "touched": "2019-11-23T20:08:34Z",
+                                    "lastrevid": 144038875,
+                                    "length": 2115,
+                                    "fullurl": "https://fr.wikipedia.org/wiki/Acad"
+                                    "emy_of_Art_University",
+                                    "editurl": "https://fr.wikipedia.org/w/index.p"
+                                    "hp?title=Academy_of_Art_University&action=edi"
+                                    "t",
+                                    "canonicalurl": "https://fr.wikipedia.org/wiki"
+                                    "/Academy_of_Art_University",
+                                }
+                            }
+                        },
+                    },
+                ]
+            )
 
             def __init__(self, url, params):
                 pass
 
             def json(self):
-                    return next(self.responses)
+                return next(self.responses)
 
         monkeypatch.setattr("requests.get", MockGet)
 
         wiki_instance = Wiki(37.786971, -122.399677)
 
-        assert wiki_instance.getting_extract_from_closest_wiki_page() == "L" \
+        # -tc- ne pas tester 2 méthodes dans un même test
+        assert (
+            wiki_instance.getting_extract_from_closest_wiki_page() == "L"
             "\u2019Academy of Art University "
-        assert wiki_instance.getting_url_from_closest_wiki_page() == "https:" \
+        )
+        assert (
+            wiki_instance.getting_url_from_closest_wiki_page() == "https:"
             "//fr.wikipedia.org/wiki/Academy_of_Art_University"
+        )
