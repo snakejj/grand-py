@@ -4,7 +4,6 @@
 """Module which defines all classes and functions API related ."""
 
 import requests
-import json
 from operator import itemgetter
 
 from grandpy.api.configapi import HERE_APP_ID, HERE_APP_CODE
@@ -101,5 +100,7 @@ class Wiki:
         raw_result = requests.get(url, params=data)
         result = raw_result.json()
         print(result)
-        extract_and_url = itemgetter("extract", "fullurl")(result["query"]["pages"][str(page_id)])
+        extract_and_url = itemgetter("extract", "fullurl")(
+            result["query"]["pages"][str(page_id)]
+        )
         return extract_and_url
