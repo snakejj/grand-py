@@ -5,8 +5,9 @@
 
 import requests
 import json
+from operator import itemgetter
 
-from api.configapi import HERE_APP_ID, HERE_APP_CODE
+from grandpy.api.configapi import HERE_APP_ID, HERE_APP_CODE
 
 
 class Here:
@@ -35,8 +36,7 @@ class Here:
             # Reducing from the raw dict to the list we want to extact infos
             # #################################################################
             raw_result = self._getting_raw_info_from_api_places()
-            items = raw_result['results']
-            itemskey = items.get('items')
+            items = raw_result['results'].get("items")
         except ValueError:
             self.error = True
         except IndexError:
@@ -46,36 +46,16 @@ class Here:
         except KeyError:
             self.error = True
 
-        return itemskey
-
-    def _from_sorted_raw_info_to_location_name(self):
-        itemskey = self._sorting_raw_info()
-        # Assign the name of the location returned
-        title = itemskey[0].get('title')
-        return title
-
-    def _from_sorted_raw_info_to_location_position(self):
-        itemskey = self._sorting_raw_info()
-        # Assign the position of the result returned
-        position = itemskey[0].get('position')
-        return position
-
-    def _from_sorted_raw_info_to_location_link(self):
-        itemskey = self._sorting_raw_info()
-        # Assign the link raw data (containing a link to a map, the address
-        # , the website link if available, phone number if available, etc.)
-        # of the result returned
-        href = itemskey[0].get('href')
-        return href
+        return items
 
     def getting_sorted_informations(self):
-        # Assign the differents informations to variables
-        # #################################################################
-        sorted_info = [
-            self._from_sorted_raw_info_to_location_name(),
-            self._from_sorted_raw_info_to_location_position(),
-            self._from_sorted_raw_info_to_location_link()
-        ]
+        itemskey = self._sorting_raw_info()
+
+        # Assign the name of the location, the position and the link raw data
+        # (containing a link to a map, the address, the website link if
+        # available, phone number if available, etc.) of the result returned
+
+        sorted_info = itemgetter("title", "position", "href")(itemskey[0])
         return sorted_info
 
 
@@ -99,12 +79,13 @@ class Wiki:
         raw_result = requests.get(url, params=data)
         return raw_result.json()
 
-    def _from_sorted_raw_info_to_article_id(self):
+    def article_id_from_sorted_raw_info(self):
         raw_result = self._getting_raw_info_from_api_geosearch()
         pageid = raw_result["query"]["geosearch"][0]["pageid"]
         return pageid
 
-    def _getting_raw_info_from_api_extract(self):
+    def getting_extract_and_url_from_closest_wiki_page(self, page_id):
+
         url = "https://fr.wikipedia.org/w/api.php"
 
         data = {
@@ -112,29 +93,13 @@ class Wiki:
             "prop": "extracts" + "|" + "info",
             "inprop": "url",
             "exchars": 300,
-            "pageids": self._from_sorted_raw_info_to_article_id(),
+            "pageids": page_id,
             "format": "json",
             "explaintext": ""
         }
 
         raw_result = requests.get(url, params=data)
-        return raw_result.json()
-
-    def getting_extract_from_closest_wiki_page(self):
-        raw_result = self._getting_raw_info_from_api_extract()
-        page_id = self._from_sorted_raw_info_to_article_id()
-        extract = raw_result["query"]["pages"][str(page_id)]["extract"]
-        return extract
-
-    def getting_url_from_closest_wiki_page(self):
-        raw_result = self._getting_raw_info_from_api_extract()
-        page_id = self._from_sorted_raw_info_to_article_id()
-        url = raw_result["query"]["pages"][str(page_id)]["fullurl"]
-        return url
-    
-
-# ##########Test##############
-instance_wiki = Wiki(37.786971, -122.399677)
-
-print(instance_wiki.getting_url_from_closest_wiki_page())
-# ############################.
+        result = raw_result.json()
+        print(result)
+        extract_and_url = itemgetter("extract", "fullurl")(result["query"]["pages"][str(page_id)])
+        return extract_and_url
