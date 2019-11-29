@@ -99,7 +99,6 @@ class Wiki:
 
         raw_result = requests.get(url, params=data)
         result = raw_result.json()
-        print(result)
         extract_and_url = itemgetter("extract", "fullurl")(
             result["query"]["pages"][str(page_id)]
         )

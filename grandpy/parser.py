@@ -37,3 +37,4 @@ class Parser:
         self._remove_extra_spaces_between_words()
         self._stripping_leading_and_trailing_spaces()
         self._extract_location()
+        return self.text
