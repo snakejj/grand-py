@@ -12,8 +12,8 @@ class TestGrandpy:
         monkeypatch.setattr("random.choice", mock_choice)
 
         test_return = Grandpy("Bonjour papy, ou se trouve la Tour Eiffel ?")
-        print(test_return)
-        assert test_return == {
+        
+        assert test_return.grandpy() == {
             "title": "Tour Eiffel",
             "gps": {
                 "latitude": 48.85824,
