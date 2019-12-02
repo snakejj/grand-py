@@ -2,7 +2,7 @@
 # coding: utf-8
 
 from grandpy.grandpy import Grandpy
-from grandpy.parser import Parser
+
 
 class TestGrandpy:
     def test_grandpy_getting_all_informations_in_a_list(self, monkeypatch):
@@ -15,9 +15,16 @@ class TestGrandpy:
         def mock_article_id_from_sorted_raw_info(gps_coordinate):
             return 4641538
 
-        def mock_getting_extract_and_url_from_closest_wiki_page(gps_coordinate, pageid):
+        def mock_getting_extract_and_url_from_closest_wiki_page(
+            gps_coordinate, pageid
+        ):
             return [
-                "Le Jules Verne est un restaurant parisien situé au deuxième étage de la tour Eiffel et spécialisé en cuisine française classique. Le chef Frédéric Anton est aux manettes depuis juillet 2019. Il succède à Louis Grondard (1983), Alain Reix (1992) et Alain Ducasse avec Sodexo (2007).\nLe décor a été réalisé…",
+                "Le Jules Verne est un restaurant parisien situé au deuxième "
+                "étage de la tour Eiffel et spécialisé en cuisine française "
+                "classique. Le chef Frédéric Anton est aux manettes depuis "
+                "juillet 2019. Il succède à Louis Grondard (1983), Alain Reix "
+                "(1992) et Alain Ducasse avec Sodexo (2007).\nLe décor a été "
+                "réalisé…",
                 "https://fr.wikipedia.org/wiki/Le_Jules_Verne"
             ]
 
@@ -38,7 +45,8 @@ class TestGrandpy:
         )
 
         monkeypatch.setattr(
-            "grandpy.api.api.Wiki.getting_extract_and_url_from_closest_wiki_page",
+            "grandpy.api.api."
+            "Wiki.getting_extract_and_url_from_closest_wiki_page",
             mock_getting_extract_and_url_from_closest_wiki_page
         )
 
@@ -55,9 +63,14 @@ class TestGrandpy:
                 "latitude": 48.85824,
                 "longitude": 2.2945
             },
-            "article_extract": "Le Jules Verne est un restaurant parisien situé au deuxième étage de la tour Eiffel et spécialisé en cuisine française classique. Le chef Frédéric Anton est aux manettes depuis juillet 2019. Il succède à Louis Grondard (1983), Alain Reix (1992) et Alain Ducasse avec Sodexo (2007).\nLe décor a été réalisé…",
+            "article_extract": "Le Jules Verne est un restaurant parisien "
+            "situé au deuxième étage de la tour Eiffel et spécialisé en "
+            "cuisine française classique. Le chef Frédéric Anton est aux "
+            "manettes depuis juillet 2019. Il succède à Louis Grondard (1983),"
+            " Alain Reix (1992) et Alain Ducasse avec Sodexo (2007).\nLe décor"
+            " a été réalisé…",
             "url_article": "https://fr.wikipedia.org/wiki/Le_Jules_Verne",
             "error": "Je suis un peu dur de la feuille, peux tu reformuler ?",
-            "grandpy-answer": "Tour Eiffel? Bien sur, je te montre une carte, c'est plus parlant."
+            "grandpy-answer": "Tour Eiffel? Bien sur, je te montre une carte, "
+            "c'est plus parlant."
         }
-
