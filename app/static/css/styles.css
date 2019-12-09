@@ -1,0 +1,124 @@
+html {
+    font-size: 100%;
+    background-image: url(img/overlay.png), url(img/bg.jpg);
+    background-repeat: repeat, no-repeat;
+    background-size: auto, 100% 100%;
+    background-attachment: fixed;
+    height: 90%;
+    display:block;
+    margin : auto;
+    /*overflow-y: scroll;*/
+}
+
+body {
+    height: 92%;
+    width: 550px;
+    margin: 4% auto 4% auto;
+    display: flex;
+    flex-direction: column;
+    padding: auto;
+
+}
+
+main {
+    background-color: #ffffff;
+    padding-bottom: 2%;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+a:-webkit-any-link
+{
+    text-decoration: none;
+}
+/* ************************************************************************ */
+
+header {
+    height: 4em;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #ffffff;
+}
+
+h1 {
+    text-align: center;
+    font-size: 1.5em;
+}
+
+/* ************************************************************************ */
+
+
+#answers {
+    margin : 0 2% 2% 2%;
+    display:block;
+    width: 96%;
+    min-height: 450px;
+    max-height:450px;
+    height: auto;
+    overflow-y: auto;
+    border: 1px solid #846c90;
+    border-radius: 5px;
+}
+
+.map {
+    width: 96%;
+    height: 200px;
+    margin: 0 2% 0 2%;
+    background: #846c90;
+}
+
+.anecdote {
+    padding-bottom: 1em;
+    border-bottom: 1px dotted black;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+
+}
+
+.error {
+    padding-bottom: 1em;
+    color: red;
+    border-bottom: 1px dotted black;
+}
+
+/* ************************************************************************ */
+
+#question {
+    margin : 2% 2% 0 2%;
+    display:block;
+    width: 96%;
+    max-height:500px;
+    border: 1px solid #846c90;
+    border-radius: 5px;
+}
+
+
+#askquestionhere {
+    margin: 1% 0 0 2%;
+}
+
+input{
+    width: 96%;
+    margin : 2%;
+    text-align: center;
+    border: 1px solid #846c90;
+}
+
+button {
+    width: 20%;
+    margin : auto 40% 5px 40%;
+    text-align: center;
+    padding: 0px;
+
+}
+
+/* ************************************************************************ */
+
+
+
+
+footer {
+    margin-bottom: 5px;
+    text-align: center;
+}
+

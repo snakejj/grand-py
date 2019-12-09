@@ -53,9 +53,16 @@ class Here:
         # Assign the name of the location, the position and the link raw data
         # (containing a link to a map, the address, the website link if
         # available, phone number if available, etc.) of the result returned
-
-        sorted_info = itemgetter("title", "position", "href")(itemskey[0])
-        return sorted_info
+        try:
+            sorted_info = itemgetter(
+                "title",
+                "position",
+                "href",
+                "vicinity"
+                )(itemskey[0])
+            return sorted_info
+        except IndexError:
+            self.error = True
 
 
 class Wiki:

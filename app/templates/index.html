@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header>
+    <h1>{{ page_title }}</h1>
+</header>
+<main>
+    <div id="answers">
+    </div>
+    <div id="question">
+        
+        <form id="question-form">
+            <p id="askquestionhere">Poses ta question ici petit :</p>
+            <input type="text" id="question-input" name="question" placeholder="Bonjour papy, pourrais tu me dire où se trouve la tour Eiffel ?">
+            <br />
+            <button type="submit">Envoyer</button>
+        </form>
+    </div>
+
+    
+</main>
+<footer>
+    <p>
+        <a href="https://github.com/snakejj/grand-py">
+            <img alt="GitHub" src="{{ url_for( 'static', filename='css/img/github.png' ) }}">
+        </a>
+        <a href="https://www.gnu.org/licenses/copyleft.fr.html">
+            <img alt="Copyleft" src="{{ url_for( 'static', filename='css/img/copyleft.png' ) }}">
+        </a>
+    </p>
+</footer>
+{% endblock %}
