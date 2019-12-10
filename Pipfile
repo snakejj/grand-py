@@ -11,8 +11,6 @@ pytest = "*"
 unidecode = "*"
 flask = "*"
 requests = "*"
-pytest = "*"
-dotenv = "*"
+gunicorn = "*"
 
 [requires]
-python_version = "3.6"
