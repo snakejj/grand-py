@@ -81,12 +81,18 @@ form.addEventListener("submit", function (event) {
             
             // -----------------------------------------
 
-
-
             let anecdote = document.createElement("p"); // <p></p>
             anecdote.classList.add("anecdote"); // <p class="anecdote"></p>
-            anecdote.textContent = `${response.grandpyanecdote} ${response.articleextract} ${response.urlarticle}`;
+            anecdote.textContent = `${response.grandpyanecdote} ${response.articleextract}`;
             answers.appendChild(anecdote);
+
+            let link = document.createElement('a'); // <a></a>
+            link.setAttribute('href',`${response.urlarticle}`); // <a href:"`${response.urlarticle}`"></a>
+            link.innerHTML = "En savoir plus"; // <a href:"`${response.urlarticle}`"> En savoir plus</a>
+            answers.appendChild(link);
+
+            let line = document.createElement("hr"); // <hr />
+            answers.appendChild(line);
 
             anecdote.scrollIntoView({behavior: "smooth"});
 
