@@ -88,7 +88,7 @@ form.addEventListener("submit", function (event) {
             anecdote.textContent = `${response.grandpyanecdote} ${response.articleextract} ${response.urlarticle}`;
             answers.appendChild(anecdote);
 
-            anecdote.scrollIntoView();
+            anecdote.scrollIntoView({behavior: "smooth"});
 
         } else if (response.grandpyerror) {
             let errorSentence = document.createElement("p"); // <p></p>
@@ -96,7 +96,7 @@ form.addEventListener("submit", function (event) {
             errorSentence.textContent = `${response.grandpyerror}`;
             let answers = document.querySelector("#answers");
             answers.appendChild(errorSentence);
-            errorSentence.scrollIntoView();
+            errorSentence.scrollIntoView({behavior: "smooth"});
         }
       
         
