@@ -60,10 +60,8 @@ class Grandpy:
 
         return {
             "title": title,
-            "gps": {
-                "latitude": latitude,
-                "longitude": longitude
-            },
+            "latitude": latitude,
+            "longitude": longitude,
             "address": address.replace('<br/>', ', '),
 
             "articleextract": article_extract,
