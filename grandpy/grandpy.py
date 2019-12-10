@@ -76,12 +76,3 @@ class Grandpy:
             address.replace('<br/>', ', ')
 
         }
-
-
-"""
-if __name__ == "__main__":
-
-    grandpy_instance = Grandpy("Bonjour, ou se situe la tour eiffel?")
-    print(grandpy_instance.grandpy())
-
-"""
