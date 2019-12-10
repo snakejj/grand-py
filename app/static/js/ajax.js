@@ -37,17 +37,6 @@ form.addEventListener("submit", function (event) {
         if (response.grandpyanswer) {
             let answers = document.querySelector("#answers");
 
-            function removeElementsByClass(className){
-                var elements = document.getElementsByClassName(className);
-                while(elements.length > 0){
-                    elements[0].parentNode.removeChild(elements[0]);
-                }
-            }
-
-            removeElementsByClass("answer");
-            removeElementsByClass("map");
-            removeElementsByClass("anecdote");
-
             let answer = document.createElement("p"); // <p></p>
             answer.classList.add("answer"); // <p class="answer"></p>
             answer.textContent = `${response.grandpyanswer}`;
@@ -73,7 +62,7 @@ form.addEventListener("submit", function (event) {
             //Step 1: initialize communication with the platform
             // In your own code, replace variable window.apikey with your own apikey
             let platform = new H.service.Platform({
-              apikey: '3x_folrFxFldUXawwtDvrOxg4F2T5BFF3P_Rp0hRp7c'
+              apikey: `${response.mapapi}`
             });
             let defaultLayers = platform.createDefaultLayers();
             

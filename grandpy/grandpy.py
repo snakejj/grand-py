@@ -2,6 +2,7 @@ import random
 
 from grandpy.parser import Parser
 from grandpy.api.api import Here, Wiki
+from grandpy.api.configapi import HERE_JS_MAP
 
 
 class Grandpy:
@@ -63,7 +64,7 @@ class Grandpy:
             "latitude": latitude,
             "longitude": longitude,
             "address": address.replace('<br/>', ', '),
-
+            "mapapi": HERE_JS_MAP,
             "articleextract": article_extract,
             "urlarticle": url,
             "grandpyanecdote": random.choice(list_anecdote),
