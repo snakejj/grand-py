@@ -68,11 +68,10 @@ class Grandpy:
             "articleextract": article_extract,
             "urlarticle": url,
             "grandpyanecdote": random.choice(list_anecdote),
-            "grandpyanswer":
-            title +
-            "? " +
-            random.choice(list_answer) +
-            " " +
-            address.replace('<br/>', ', ')
+            "grandpyanswer": (
+                f"{title}? "
+                f"{random.choice(list_answer)} "
+                f"{address.replace('<br/>', ', ')}"
+            )
 
         }
