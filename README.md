@@ -38,8 +38,8 @@ To work on the project, you will need to add a .env at the root of the project f
 HERE_APP_ID = your api key for HERE'S "Places API"  
 HERE_APP_CODE = your api code for HERE'S "Places API"  
 HERE_JS_MAP = your api key for HERE'S "Marker on the Map API"  
-FLASK_APP = the name of the entrancy file for Flask
-FLASK_DEBUG = set to 1 in Debug mode, and 0 if not
+FLASK_APP = the name of the entrancy file for Flask  
+FLASK_DEBUG = set to 1 in Debug mode, and 0 if not  
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to 
