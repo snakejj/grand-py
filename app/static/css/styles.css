@@ -21,7 +21,7 @@ body {
 }
 
 main {
-    background-color: #ffffff;
+    background-color: #ffffff9e;
     padding-bottom: 2%;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -37,7 +37,7 @@ header {
     height: 4em;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    background-color: #ffffff;
+    background-color: #ffffff9e;
 }
 
 h1 {
@@ -114,6 +114,7 @@ input{
     margin : 2%;
     text-align: center;
     border: 1px solid #846c90;
+    background-color: #ffffff9e;
 }
 
 button {
